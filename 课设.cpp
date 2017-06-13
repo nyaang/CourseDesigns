@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-
+  
 typedef struct CTNODE{
 	double cost;                         //存放个人经费消耗
 	int person_num;	                    //记录是第几人的选择层，值等于当前结点所在层次数-1,第几个人选择就是几+1 
