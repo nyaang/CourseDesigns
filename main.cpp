@@ -58,6 +58,7 @@ void inittree(CTNODE& parnode, double(&cost)[100][100], int n, int m, CTNODE* le
 	//含有结果结点的情况，存入辅助ctnode数组
 	if (parnode.task_finished == m) {
 		leafnum++;
+		leafnode->child = NULL;
 		leafnode[leafnum] = parnode;
 	}
 }
@@ -66,13 +67,14 @@ void inittree(CTNODE& parnode, double(&cost)[100][100], int n, int m, CTNODE* le
 void sortcost(CTNODE* leafnode, int leafnum, int m) {
 	CTNODE minleaf = leafnode[1];	//辅助变量，存放最优解
 	for (int i = 2; i <= leafnum; i++) {
-		if (minleaf.allcost < leafnode[i].allcost) {
+		if (minleaf.allcost > leafnode[i].allcost) {
 			minleaf = leafnode[i];
 		}
 	}
 
 	//结果输出，循环中的第X次cout输出的值代表第X人做的任务编号
 	for (int j = 1; j <= 1; j++) {
+		cout << minleaf.allcost << endl;
 		cout << minleaf.travellist[j];
 	}
 }
