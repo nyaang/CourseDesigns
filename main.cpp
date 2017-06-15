@@ -76,9 +76,10 @@ void sortcost(CTNODE* leafnode, int leafnum, int n) {
 		}
 	}
 	//结果输出，循环中的第X次cout输出的值代表第X人做的任务编号
-	cout << minleaf.allcost << endl;
+	cout <<"总费用："<< minleaf.allcost << endl;
+	cout << "最佳分配:" << endl;
 	for (int j = 1; j <= n; j++) {
-		cout << minleaf.travellist[j]<<" ";
+		cout <<"("<<j<<","<< minleaf.travellist[j]<<") ";
 	}
 }
 
@@ -97,11 +98,15 @@ int main()
 	CTNODE rootnode;
 	double cost[12][12];	//12是我设置的上限，可随需求调高
 	int m, n;
-	cin >> n; cin >> m;
+	cout << "请输入人数:" << endl;
+	cin >> n; 
+	cout << "请输入任务数:" << endl;
+	cin >> m;
 	int i, j;
 	for (i = 1; i <= n; i++) {	
 		cost[i][0] = 0;	//第0个任务含义为不做任务，cost值为0
 	}
+	cout << "请输入每个人的任务耗费，每个任务的耗费以空格分隔:" << endl;
 	for (i = 1; i <= n; i++)
 	{
 		//for (j = 1; j <= m; j++){
