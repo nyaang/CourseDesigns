@@ -7,7 +7,7 @@ typedef struct CTNODE {
 	int person_num;	//记录是第几人的选择层，值等于当前结点所在层次数-1
 	int task_num; //记录是第几个任务，值等于母结点的从左往右的第几个子结点数
 	int task_finished;	//记录已经完成多少任务
-	int travellist[10];	//记录是遍历过哪些任务，遍历的时候会用上
+	int travellist[13];	//记录是遍历过哪些任务，遍历的时候会用上
 	double allcost; //记录总的费用，遍历的时候会用上
 	CTNODE* child; //子结点
 };
@@ -21,19 +21,16 @@ void createchildnode(CTNODE& parnode, int m, int n) {
 			parnode.child[i].task_num = i;
 			parnode.child[i].task_finished = 0;
 			//parnode.child[i].travellist = new int[n + 1];
-			for (int j = 0; j <= 10; j++) {
+			for (int j = 0; j <= 12; j++) {
 				parnode.child[i].travellist[j] = -1;
 			}
 			createchildnode(parnode.child[i], m, n);
 		}
 	}
-	//if (parnode.person_num == n) {
-	//	parnode.child = new CTNODE[0];
-	//}
 }
 
 //遍历树
-void inittree(CTNODE& parnode, double(&cost)[11][11], int n, int m, CTNODE* leafnode, int& leafnum) {	//需要提供一个根节点的引用，cost矩阵,n,m，存储结果的的矩阵，方案数
+void inittree(CTNODE& parnode, double(&cost)[12][12], int n, int m, CTNODE* leafnode, int& leafnum) {	//需要提供一个根节点的引用，cost矩阵,n,m，存储结果的的矩阵，方案数
 	bool travelvalue = 1;	//辅助变量，用于判断是否需要遍历该结点
 	if (parnode.task_finished < m) {
 		if (parnode.person_num < n) {
@@ -48,6 +45,7 @@ void inittree(CTNODE& parnode, double(&cost)[11][11], int n, int m, CTNODE* leaf
 				}
 				if (travelvalue == 1) {
 					parnode.child[i].cost = cost[parnode.child[i].person_num][parnode.child[i].task_num];
+					parnode.child[i].task_finished = parnode.task_finished;
 					if (parnode.child[i].cost != 0) { parnode.child[i].task_finished = parnode.task_finished + 1; }	//代表该人不分配任务
 					parnode.child[i].allcost = parnode.allcost + parnode.child[i].cost;
 					for (int k = 0; k < parnode.child[i].person_num; k++) {
@@ -65,13 +63,12 @@ void inittree(CTNODE& parnode, double(&cost)[11][11], int n, int m, CTNODE* leaf
 	//含有结果结点的情况，存入辅助ctnode数组
 	if (parnode.task_finished == m) {
 		leafnum++;
-		//leafnode->child = NULL;
 		leafnode[leafnum] = parnode;
 	}
 }
 
 //求最小值，目前只输出一个最小值
-void sortcost(CTNODE* leafnode, int leafnum, int m) {
+void sortcost(CTNODE* leafnode, int leafnum, int n) {
 	CTNODE minleaf = leafnode[1];	//辅助变量，存放最优解
 	for (int i = 2; i <= leafnum; i++) {
 		if (minleaf.allcost > leafnode[i].allcost) {
@@ -80,8 +77,8 @@ void sortcost(CTNODE* leafnode, int leafnum, int m) {
 	}
 	//结果输出，循环中的第X次cout输出的值代表第X人做的任务编号
 	cout << minleaf.allcost << endl;
-	for (int j = 1; j <= m; j++) {
-		cout << minleaf.travellist[j];
+	for (int j = 1; j <= n; j++) {
+		cout << minleaf.travellist[j]<<" ";
 	}
 }
 
@@ -98,7 +95,7 @@ int main()
 {
 	//n个人，m个任务
 	CTNODE rootnode;
-	double cost[11][11];
+	double cost[12][12];	//12是我设置的上限，可随需求调高
 	int m, n;
 	cin >> n; cin >> m;
 	int i, j;
@@ -107,23 +104,24 @@ int main()
 	}
 	for (i = 1; i <= n; i++)
 	{
-		for (j = 1; j <= m; j++){
-			cin >> cost[i][j];
-		}
+		//for (j = 1; j <= m; j++){
+		//	cin >> cost[i][j];
+		//}
+		cin >> cost[i][1] >> cost[i][2] >> cost[i][3]>> cost[i][4] >> cost[i][5] >> cost[i][6]>> cost[i][7];	//针对7个任务的输入格式
 	}
 	rootnode.cost = 0; rootnode.person_num = 0; rootnode.task_num = -2; rootnode.allcost = 0; rootnode.task_finished = 0;	//根结点的数据成员无实际意义
 	//rootnode.travellist = new int[n + 1];
-	for (int i = 0; i <= 10; i++) {
+	for (int i = 0; i <= 12; i++) {
 		rootnode.travellist[i] = -2;	
 	}
 	createchildnode(rootnode, m, n);
-	int leafsize = jiecheng(n) / jiecheng(n - m);
+	int leafsize = jiecheng(m)*jiecheng(n) / (jiecheng(n - m)*jiecheng(m));
 	leafsize = leafsize + 1;
 	CTNODE* leafnode = new CTNODE[leafsize];	//辅助CTNODE数组，存放所有的代表结果的结点
 	int leafnum = 0;	//辅助变量，记录CTNODE中有多少个代表结果的结点
 
 	inittree(rootnode, cost, n, m, leafnode, leafnum);
-	sortcost(leafnode, leafnum, m);
+	sortcost(leafnode, leafnum, n);
 	system("pause");
 	return 0;
 }
