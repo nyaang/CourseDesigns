@@ -3,6 +3,24 @@
   <title>欢迎, {{ username }}</title>
 </head>
 <body>
-  <p>欢迎, {{ username }}!</p>
+  <p>欢迎, {{ username }}!<a href="/">返回主页</a></p>
+  <p><a href="/myorder",id={{ username }}>查看我的订单</a></p>
+  <form action="/orderticket" method="post">
+<table border="0" method="post">
+    <tr>
+        <td>车次号</td><td>出发站</td><td>终点站</td><td>发车时间</td><td>到站时间</td><td>票价</td><td>余票量</td>
+    </tr>
+          {% for ticket in tickets %}
+     <tr>
+        <td>{{ ticket[0] }}</td><td>{{ ticket[1] }}</td><td>{{ ticket[2] }}</td><td>{{ ticket[3] }}</td><td>{{ ticket[4] }}</td><td>{{ ticket[5] }}</td><td>{{ ticket[6] }}</td><td><input type="radio" name="ticket" value=["{{ ticket[0] }}","{{ username }}"]>选择</td>
+     </tr>
+      {% endfor %}
+</table>
+<input type="submit" value="购票">
+  </form>
+    {% if orderid %}
+    <p style="color:red">下单成功，您的订单号是：{{ orderid }}</p>
+    {% endif %}
+
 </body>
 </html>

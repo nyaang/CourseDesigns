@@ -5,15 +5,28 @@
     <title>登录页面</title>
 </head>
 <body>
-    {% if message %}
-    <p style="color:red">{{ message }}</p>
+<p><a href="/">返回主页</a></p>
+    {% if loginmessage %}
+    <p style="color:red">{{ loginmessage }}</p>
     {% endif %}
     <legend>请先登录</legend>
  <form action="/login" method="post">
     <legend>Please sign in:</legend>
-    <p><input name="username" placeholder="Username" value="{{ username }}"></p>
-    <p><input name="password" placeholder="Password" type="password"></p>
+    <p><input name="usernamelogin" placeholder="Username" value="{{ loginusername }}"></p>
+    <p><input name="passwordlogin" placeholder="Password" type="password"></p>
     <p><button type="submit">Sign In</button></p>
+  </form>
+
+
+    <p><br><br>没有账号？请先注册。用户名不区分大小写。</p>
+    {% if registermessage %}
+    <p style="color:red">{{ registermessage }}</p>
+    {% endif %}
+ <form action="/register" method="post">
+    <legend>Please sign up</legend>
+    <p><input name="usernameregister" placeholder="Username" value="{{ registerusername }}"></p>
+    <p><input name="passwordregister" placeholder="Password" value="{{ registerpassword }}"></p>
+    <p><button type="submit">Sign up</button></p>
   </form>
 </body>
 </html>
