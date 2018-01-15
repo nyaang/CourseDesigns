@@ -67,7 +67,7 @@ def addorder(ticket_num,username):
     orderid=str(int(time.time() * 1000))   #用当前时间戳生成订单号，精确到千分之一秒
     seatnum=getseatnum(ticket_num)
     try:
-        cursor.execute('insert into ORDERS (Tnum,Username,Orderid,Dtime,Snumber,Tprice) VALUES (%s,%s,%s,%s,%s,%s)',(ticket_num,username,orderid,ticket_info[3],seatnum,ticket_info[5]))
+        cursor.execute('insert into orders (Tnum,Username,Orderid,Dtime,Snumber,Tprice) VALUES (%s,%s,%s,%s,%s,%s)',(ticket_num,username,orderid,ticket_info[3],seatnum,ticket_info[5]))
         conn.commit()
         cursor.fetchall()
     except mysql.connector.errors.InterfaceError as success:  # 添加订单
