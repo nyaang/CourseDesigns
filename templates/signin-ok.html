@@ -12,7 +12,7 @@
     </tr>
           {% for ticket in tickets %}
      <tr>
-        <td>{{ ticket[0] }}</td><td>{{ ticket[1] }}</td><td>{{ ticket[2] }}</td><td>{{ ticket[3] }}</td><td>{{ ticket[4] }}</td><td>{{ ticket[5] }}</td><td>{{ ticket[6] }}</td><td><input type="radio" name="ticket" value=["{{ ticket[0] }}","{{ username }}"]>选择</td>
+        <td>{{ ticket[0] }}</td><td>{{ ticket[1] }}</td><td>{{ ticket[2] }}</td><td>{{ ticket[3] }}</td><td>{{ ticket[4] }}</td><td>{{ ticket[5] }}</td><td>{{ ticket[6] }}</td><td><input type="radio" name="ticket" value=["{{ ticket[0] }}","{{ username }}"] checked>选择</td>
      </tr>
       {% endfor %}
 </table>
@@ -20,6 +20,11 @@
   </form>
     {% if orderid %}
     <p style="color:red">下单成功，您的订单号是：{{ orderid }}</p>
+    {% endif %}
+    {% if orderid==False %}
+        <script>
+        alert("余票数为0，下单失败！");
+        </script>
     {% endif %}
 
 </body>

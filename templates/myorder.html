@@ -28,7 +28,7 @@
     </tr>
       {% for order in orders %}
      <tr>
-        <td>{{ order[0] }}</td><td>{{ order[2] }}</td><td>{{ order[3] }}</td><td>{{ order[4] }}</td><td>{{ order[5] }}</td><td><input type="radio" name="order" value=["{{ order[2] }}","{{ loginusername }}"]>选择</td>
+        <td>{{ order[0] }}</td><td>{{ order[2] }}</td><td>{{ order[3] }}</td><td>{{ order[4] }}</td><td>{{ order[5] }}</td><td><input type="radio" name="order" value=["{{ order[2] }}","{{ loginusername }}"] checked>选择</td>
      </tr>
       {% endfor %}
      </table>

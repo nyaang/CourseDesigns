@@ -1,16 +1,17 @@
 import mysql.connector,time,random
+password=''#在此输入密码
 def closedatabse(cursor,conn):
     cursor.close()
     conn.close()
 def showtickets():
-    conn = mysql.connector.connect(user='root', password='', database='ticket')
+    conn = mysql.connector.connect(user='root', password=password, database='ticket')
     cursor = conn.cursor()
     cursor.execute('select * from ticket')
     ticketsinfo=cursor.fetchall()
     closedatabse(cursor,conn)
     return ticketsinfo
 def jugelogin(username,passwdvalue):
-    conn = mysql.connector.connect(user='root', password='', database='ticket')
+    conn = mysql.connector.connect(user='root', password=password, database='ticket')
     cursor = conn.cursor()
     cursor.execute('select Password from user WHERE Username=%s',(username,))
     userinfos = cursor.fetchall()
@@ -21,7 +22,7 @@ def jugelogin(username,passwdvalue):
     except:
         return False
 def signup(username,passwdvalue):
-    conn = mysql.connector.connect(user='root', password='', database='ticket')
+    conn = mysql.connector.connect(user='root', password=password, database='ticket')
     cursor = conn.cursor()
     try:
         cursor.execute('insert into user (username,password) VALUES (%s,%s)',(username,passwdvalue))
@@ -46,7 +47,7 @@ def getseatnum(ticket_num):    #获取一个未重复的座位号
     while i<=10000:
         seatnums.append(i)
         i=i+1
-    conn = mysql.connector.connect(user='root', password='', database='ticket')
+    conn = mysql.connector.connect(user='root', password=password, database='ticket')
     cursor = conn.cursor()
     cursor.execute('select Snumber from orders where Tnum=%s',(ticket_num,))
     seats_info=cursor.fetchall()
@@ -56,10 +57,13 @@ def getseatnum(ticket_num):    #获取一个未重复的座位号
     seatnum=random.choice(seatnums)
     return seatnum
 def addorder(ticket_num,username):
-    conn = mysql.connector.connect(user='root', password='', database='ticket')
+    conn = mysql.connector.connect(user='root', password=password, database='ticket')
     cursor = conn.cursor()
     cursor.execute('select * from ticket where Tnum=%s',(ticket_num,))
     ticket_info=cursor.fetchall()[0]
+    ticket_sleft=ticket_info[6]
+    if ticket_sleft==0:
+        return False    #余票数为0
     orderid=str(int(time.time() * 1000))   #用当前时间戳生成订单号，精确到千分之一秒
     seatnum=getseatnum(ticket_num)
     try:
@@ -74,14 +78,14 @@ def addorder(ticket_num,username):
             closedatabse(cursor, conn)
             return orderid
 def showorders(username):
-    conn = mysql.connector.connect(user='root', password='', database='ticket')
+    conn = mysql.connector.connect(user='root', password=password, database='ticket')
     cursor = conn.cursor()
     cursor.execute('select * from orders where Username=%s', (username,))
     orders=cursor.fetchall()
     closedatabse(cursor, conn)
     return orders
 def tuipiao_order(orderid):
-    conn = mysql.connector.connect(user='root', password='', database='ticket')
+    conn = mysql.connector.connect(user='root', password=password, database='ticket')
     cursor = conn.cursor()
     cursor.execute('select * from orders where Orderid=%s', (orderid,))
     ticket_num=cursor.fetchall()[0][0]
