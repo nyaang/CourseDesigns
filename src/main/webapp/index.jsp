@@ -9,8 +9,9 @@
     VisitDB db=new VisitDB();
     ResultSet rs=db.executeQuery();
     %>
+<form name="input" action="delete.jsp" method="post">
     <table border="1" style="float:left">
-        <tr><th>工单编号</th> <th>订单数量</th> <th>物料编号</th> <th>工艺路线</th> <th>工单状态</th> <th>订单开始时间</th> <th>订单完成时间</th>  <th>创建时间</th>
+        <tr><th>选中后删除</th><th>工单编号</th> <th>订单数量</th> <th>物料编号</th> <th>工艺路线</th> <th>工单状态</th> <th>订单开始时间</th> <th>订单完成时间</th>  <th>创建时间</th>
         <%
     while (rs.next()) { //遍历数据库查询的返回对象
 
@@ -24,13 +25,15 @@
         String create_time = rs.getString("create_time");
 %>
 
-        <tr><th><%=shoporder_no %></th><th><%=shoporder_numbers%></th><th><%=shoporder_item%></th><th><%=process_route%></th><th><%=status%></th><th><%=shoporder_start_date%></th><th><%=shoporder_end_date%></th><th><%=create_time%></th></tr>
+        <tr><th><input type="radio" name="shoporder_no" value=<%=shoporder_no %>></th><th><%=shoporder_no %></th><th><%=shoporder_numbers%></th><th><%=shoporder_item%></th><th><%=process_route%></th><th><%=status%></th><th><%=shoporder_start_date%></th><th><%=shoporder_end_date%></th><th><%=create_time%></th></tr>
     <%
     }
     %>
-    <p style="float:right">增加任务</p>
-
     </table>
+    <input type="submit" value="删除任务">
+    </form>
+    </form>
+
     <form style="float:right" action="insert.jsp" method="post">
         工单编号<input type="text" name="shoporder_no"><br>
         订单开始时间<input type="text" name="shoporder_start_date"><br>
@@ -40,7 +43,7 @@
         订单数量<input type="text" name="shoporder_numbers"><br>
         工单状态<input type="text" name="status"><br>
         创建时间<input type="text" name="create_time"><br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="增加任务">
     </form>
 </body>
 </html>

@@ -7,7 +7,8 @@ public class VisitDB {
     private PreparedStatement stmt = null;
     ResultSet rs = null;
     public static final String driverName = "com.mysql.jdbc.Driver";
-    public static final String urls = "jdbc:mysql://10.2.213.98:3306/jsp2018?user=jsp&password=jsp"+ "&useUnicode=true&characterEncoding=utf-8";
+//    public static final String urls = "jdbc:mysql://10.2.213.98:3306/jsp2018?user=jsp&password=jsp"+ "&useUnicode=true&characterEncoding=utf-8";
+    public static final String urls = "jdbc:mysql://localhost/jsp2018?user=root&password=root"+ "&useUnicode=true&characterEncoding=utf-8";
     public VisitDB(){}
     public ResultSet executeQuery() throws Exception {
         rs = null;
@@ -36,6 +37,19 @@ public class VisitDB {
             stmt.setString(6,shoporder_item);
             stmt.setString(7,shoporder_numbers);
             stmt.setString(8,status);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    public void delete(String shoporder_no)throws Exception{
+        try {
+            Class.forName(driverName);
+            conn = DriverManager.getConnection(urls);
+            stmt = conn.prepareStatement("delete from ly_shoporder where shoporder_no=?"); //此处设置表名
+            stmt.setString(1,shoporder_no);
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw e;
