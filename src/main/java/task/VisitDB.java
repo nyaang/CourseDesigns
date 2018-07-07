@@ -57,4 +57,17 @@ public class VisitDB {
             throw e;
         }
     }
+    public void update(String shoporder_no)throws Exception{
+        try {
+            Class.forName(driverName);
+            conn = DriverManager.getConnection(urls);
+            stmt = conn.prepareStatement("update ly_shoporder set status=2 where shoporder_no=?"); //此处设置表名
+            stmt.setString(1,shoporder_no);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }
