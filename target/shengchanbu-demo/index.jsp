@@ -29,7 +29,7 @@
     }
     %>
     <p style="float:right">增加任务</p>
-
+        <%--INSERT INTO ly_shoporder(`shoporder_no`, `shoporder_start_date`, `shoporder_end_date`, `process_route`, `create_time`, `shoporder_item`, `shoporder_numbers`, `status`) VALUES ('11111', '2017-08-26', '2017-11-24', 'gk89', '2017-09-01', 'item_gk89', '10', 1)--%>
     </table>
     <form style="float:right" action="insert.jsp" method="post">
         工单编号<input type="text" name="shoporder_no"><br>
