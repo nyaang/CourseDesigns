@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>火车票订购主页</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+<p><a href="/login">购票请登录</a></p>
+<a href="/myorder">查询您的订单</a>
+<table>
+    <tr>
+        <td>车次号</td><td>出发站</td><td>终点站</td><td>发车时间</td><td>到站时间</td><td>票价</td><td>余票量</td>
+    </tr>
+          {% for ticket in tickets %}
+     <tr>
+        <td>{{ ticket[0] }}</td><td>{{ ticket[1] }}</td><td>{{ ticket[2] }}</td><td>{{ ticket[3] }}</td><td>{{ ticket[4] }}</td><td>{{ ticket[5] }}</td><td>{{ ticket[6] }}</td>
+     </tr>
+      {% endfor %}
+
+
+</table>
+</body>
+</html>

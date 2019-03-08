@@ -1,2 +1,3 @@
-# JSP&SoftEG CourseDesigns
-JSP&软件工程 课程设计。
+- 数据库课程设计
+- 软件工程课程设计
+- 计算机网络课程设计
