@@ -17,6 +17,6 @@
         - history.jsp——用于查看已经完成的历史任务工单。
         - index.jsp——网站主页。
         - insert.jsp——用于新增一个任务工单
-        - target——编译输出的 target 目录。该目录下的文件都是输出缓存文件
+- target——编译输出的 target 目录。该目录下的文件都是输出缓存文件
 - pom.xml——Maven 的配置文档
 - shengchanbudemo.iml
